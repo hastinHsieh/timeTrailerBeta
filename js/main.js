@@ -278,13 +278,13 @@ function readSubtitleData() {
      });
 }
 
-async function importSRT(file) {
+function importSRT(file) {
      getFPS();
      readInSRT(file);
      creatTextKeys();
      updateSubForms();
 }
-async function importTxtLayer() {
+function importTxtLayer() {
      getFPS();
      await readInTxtLayer();
      updateSubForms();
