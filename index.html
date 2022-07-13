@@ -29,7 +29,7 @@
                               type="file"
                               style="display: none"
                               accept=".srt"
-                              onchange="try{alert("A");importSRT(files[0].path);}catch(err){alert(err,err.line)};value=null"
+                              onchange="try{importSRT(files[0].path);}catch(err){alert(err,err.line)};value=null"
                          />
                          <!-- onchange="try{readInSRT();updateSubForms();}catch(err){alert(err,err.line)}" -->
                          <!-- onchange="try{getFPS();readInSRT(files[0].path);creatTextKeys();updateSubForms();}catch(err){alert(err,err.line)};value=null" -->
