@@ -5,7 +5,7 @@ const root = document.documentElement;
 var script = document.currentScript;
 var fullUrl = script.src;
 //TODO: check function when online
-var rootPath = fullUrl.toString().replace("file:///", "").replace("main.js", "") + "../jsx/";
+var rootPath = fullUrl.replace("main.js", "") + "../jsx/";
 var csInterface = new CSInterface();
 var subAry = new Array();
 var subFormsContainer = document.getElementById("subForms");
@@ -166,6 +166,10 @@ function readInSRT(srtFile) {
                }
           }
      }
+     // subAry = [
+     //      { subTimeTxt: "00:00:02,586", subContent: "語法剖析器" },
+     //      { subTimeTxt: "00:00:03,446", subContent: "所以台灣高血壓學會推出了最新的治療指引" },
+     // ];
 }
 function readInTxtLayer() {
      try {
@@ -278,16 +282,26 @@ function readSubtitleData() {
      });
 }
 
-function importSRT(file) {
+// document.addEventListener("keyup", function (eventRef) {
+// getFPS();
+// readInSRT("G:/共用雲端硬碟/6_資源/17 插件/Script Development/Extension/Subtitle 3.0/test.srt");
+// creatTextKeys();
+// updateSubForms();
+
+async function importSRT(file) {
      getFPS();
      readInSRT(file);
      creatTextKeys();
      updateSubForms();
 }
-function importTxtLayer() {
-     getFPS();
-     readInTxtLayer();
-     updateSubForms();
+async function importTxtLayer() {
+     try {
+          getFPS();
+          await readInTxtLayer();
+          updateSubForms();
+     } catch (e) {
+          alert(e, e.line);
+     }
 }
 function setKeyOnSelectedTxtLayer() {
      csInterface.evalScript("app.project.activeItem.selectedLayers[0].id;", function (result) {
