@@ -1,0 +1,102 @@
+/*Your styles*/
+
+body {
+     margin: 10px;
+}
+
+input,
+button {
+     /* font-size: 8pt !important; */
+     /* padding: .25rem !important; */
+}
+
+.nonScrollBar::-webkit-scrollbar {
+     display: none;
+}
+
+#content {
+     margin-right: auto;
+     margin-left: auto;
+     vertical-align: middle;
+     width: 100%;
+}
+
+#btn_test {
+     width: 100%;
+}
+
+input.form-control {
+     color: #ddd;
+     border: 1px solid rgba(0, 0, 0, 0.5);
+     background: rgba(0, 0, 0, 0.25);
+}
+
+/*
+Those classes will be edited at runtime with values specified
+by the settings of the CC application
+*/
+.hostFontColor {
+}
+.hostFontFamily {
+}
+.hostFontSize {
+}
+
+/*font family, color and size*/
+.hostFont {
+}
+/*background color*/
+.hostBgd {
+}
+/*lighter background color*/
+.hostBgdLight {
+}
+/*darker background color*/
+.hostBgdDark {
+}
+/*background color and font*/
+.hostElt {
+}
+
+.hostButton {
+     border: 1px solid;
+     border-radius: 2px;
+     height: 20px;
+     vertical-align: bottom;
+     font-family: inherit;
+     color: inherit;
+     font-size: inherit;
+}
+
+/*
+* Noto Sans TC (Chinese_traditional) http://www.google.com/fonts/earlyaccess
+ */
+
+div,
+button,
+.changeShape {
+     font-family: "Noto Sans TC", sans-serif !important;
+     font-size: 10pt !important;
+     /* font-weight: 100 !important; */
+}
+
+#addSpecialSymbol,
+.specialSymbol {
+     font-family: arial !important;
+}
+
+.sectionHolder {
+     font-weight: 700 !important;
+}
+
+.tooltip > p {
+     text-align: left;
+}
+
+.tooltip-inner {
+     text-align: left;
+}
+
+#listlizeColor > button {
+     width: 100%;
+}
