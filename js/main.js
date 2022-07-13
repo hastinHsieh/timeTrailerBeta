@@ -279,6 +279,7 @@ function readSubtitleData() {
 }
 
 function importSRT(file) {
+     alert("A");
      getFPS();
      readInSRT(file);
      creatTextKeys();
