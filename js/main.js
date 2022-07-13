@@ -287,7 +287,7 @@ function importSRT(file) {
 }
 function importTxtLayer() {
      getFPS();
-     await readInTxtLayer();
+     readInTxtLayer();
      updateSubForms();
 }
 function setKeyOnSelectedTxtLayer() {
