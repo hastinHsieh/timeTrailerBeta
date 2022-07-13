@@ -2,6 +2,7 @@
 
 body {
      margin: 10px;
+     height: 100vh;
 }
 
 input,
@@ -27,7 +28,7 @@ button {
 
 input.form-control {
      color: #ddd;
-     border: 1px solid rgba(0, 0, 0, 0.5);
+     border: 1px solid rgba(255, 255, 255, 0.5);
      background: rgba(0, 0, 0, 0.25);
 }
 
@@ -99,4 +100,22 @@ button,
 
 #listlizeColor > button {
      width: 100%;
+}
+
+.box {
+     display: flex;
+     flex-flow: column;
+     height: 100%;
+}
+#header {
+     height: 63px;
+     flex: 0 1 auto;
+}
+
+#subForms {
+     height: calc(100vh - 63px);
+     overflow: scroll;
+}
+.changedForm {
+     color: #ffc107 !important;
 }

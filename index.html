@@ -18,84 +18,76 @@
           </script>
      </head>
 
-     <body class="hostElt nonScrollBar">
-          <div class="container-fluid p-3 d-grid gap-1" style="background-color: black">
-               <!-- <button class="btn btn-dark col sectionHolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseArea0" aria-expanded="true" aria-controls="collapseArea0">開發中</button>
-               <div class="collapse hide" id="collapseArea0">
-                    <div class="d-grid gap-2 bg-transparent p-1">
-                         <div class="card bg-white bg-opacity-10 border border-white border-opacity-10">
-                              <div class="btn-group p-0"> -->
-               <div class="row m-0 gap-2">
+     <body class="hostElt">
+          <div class="m-0 box">
+               <!-- style="background-color: #333333" -->
+               <div class="gap-2 bg-transparent p-3 d-flex border-bottom border-secondary" id="header">
+                    <div class="mb-3">
+                         <input
+                              class="form-control form-control-sm"
+                              id="formFileSm"
+                              type="file"
+                              style="display: none"
+                              accept=".srt"
+                              onchange="try{importSRT(files[0].path);}catch(err){alert(err,err.line)};value=null"
+                         />
+                         <!-- onchange="try{readInSRT();updateSubForms();}catch(err){alert(err,err.line)}" -->
+                         <!-- onchange="try{getFPS();readInSRT(files[0].path);creatTextKeys();updateSubForms();}catch(err){alert(err,err.line)};value=null" -->
+                    </div>
                     <button
-                         type="button"
-                         class="btn btn-secondary col"
+                         class="btn btn-outline-light btn-sm"
                          data-bs-toggle="tooltip"
                          data-bs-placement="bottom"
                          data-bs-html="true"
-                         title="將 SRC 檔案匯入至文字圖層"
-                         onclick="executeScript('Text Tools/listlize v2.0.jsx')"
+                         title="將檔案匯入字幕編輯區<br>並生成內容於選取圖層"
+                         onclick="formFileSm.click()"
                     >
-                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
-                              <path class="b" d="M9.52,0H4.02c-1.1,0-2,.9-2,2V11h1V2c0-.55,.45-1,1-1h5.5V3c0,.83,.67,1.5,1.5,1.5h2V14c0,.55-.45,1-1,1v1c1.1,0,2-.9,2-2V4.5L9.52,0Z" />
-                              <path class="b" d="M9.52,0H4.02c-1.1,0-2,.9-2,2V11h1V2c0-.55,.45-1,1-1h5.5V3c0,.83,.67,1.5,1.5,1.5h2V14c0,.55-.45,1-1,1v1c1.1,0,2-.9,2-2V4.5L9.52,0Z" />
-                              <path
-                                   class="b"
-                                   d="M2.09,13.66l-.52-.22c-.34-.13-.61-.23-.61-.52,0-.26,.22-.42,.56-.42,.32,0,.59,.12,.84,.33l.4-.5c-.32-.32-.78-.51-1.24-.51-.8,0-1.36,.5-1.36,1.14,0,.58,.4,.89,.8,1.06l.53,.22c.35,.15,.59,.24,.59,.53,0,.28-.22,.45-.63,.45-.35,0-.72-.18-1-.44l-.45,.54c.38,.37,.91,.58,1.44,.58,.91,0,1.45-.55,1.45-1.19,0-.57-.31-.87-.79-1.07Z"
-                              />
-                              <path
-                                   class="b"
-                                   d="M6.43,13.1c0-.91-.65-1.2-1.48-1.2h-1.37v3.95h.79v-1.49h.55l.81,1.49h.88l-.92-1.61c.45-.18,.75-.54,.75-1.13Zm-1.55,.63h-.51v-1.2h.51c.51,0,.79,.14,.79,.57s-.28,.63-.79,.63Z"
-                              />
-                              <polygon class="b" points="6.78 12.56 7.89 12.56 7.89 15.84 8.68 15.84 8.68 12.56 9.8 12.56 9.8 11.9 6.78 11.9 6.78 12.56" />
-                         </svg>
-                         匯入 SRT 檔
+                         匯入 SRT 檔案
                     </button>
                     <button
-                         type="button"
-                         class="btn btn-secondary col"
+                         class="btn btn-outline-light btn-sm"
                          data-bs-toggle="tooltip"
                          data-bs-placement="bottom"
                          data-bs-html="true"
-                         title="依選取圖層之 Keyframe 更新 Marker"
-                         onclick="executeScript('Text Tools/listlize v2.0.jsx')"
+                         title="將所選圖層的文字內容<br>讀入字幕編輯區"
+                         onclick="importTxtLayer()"
                     >
-                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
-                              <path
-                                   fill-rule="evenodd"
-                                   d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"
-                              />
-                              <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
-                         </svg>
-                         更新 Marker
+                         讀入文字圖層
                     </button>
                     <button
-                         type="button"
-                         class="btn btn-secondary col"
+                         class="btn btn-outline-light btn-sm"
                          data-bs-toggle="tooltip"
                          data-bs-placement="bottom"
                          data-bs-html="true"
-                         title="將目前預覽時間點之文字樣式更新至其餘 keyframe"
-                         onclick="executeScript('Text Tools/listlize v2.0.jsx')"
+                         title="捲動字幕編輯區至 AE 當前時間"
+                         onclick="scrollToTime_form()"
                     >
-                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
-                              <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                              <path
-                                   d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
-                              />
+                         尋找輸入框
+                    </button>
+                    <button
+                         class="btn btn-outline-light btn-sm"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="bottom"
+                         data-bs-html="true"
+                         title="將字幕編輯區內容<br>套用至選取的文字圖層"
+                         onclick="setKeyOnSelectedTxtLayer()"
+                    >
+                         替換文字樣式
+                    </button>
+                    <button class="btn btn-outline-light btn-sm" type="button" onclick="reloadPage()">
+                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
                          </svg>
-                         更新文字樣式
                     </button>
                </div>
-               <ul class="nav justify-content-end mt-2">
-                    <li>
-                         <button class="btn btn-outline-light btn-sm" type="button" onclick="reloadPage()">
-                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                   <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-                                   <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
-                              </svg>
-                         </button>
-                    </li>
-               </ul>
+
+               <div class="overflow-auto p-3" id="subForms">
+                    <div class="input-group mb-3">
+                         <button class="btn btn-outline-secondary">00:00</button>
+                         <input type="text" class="form-control" id="subContent" placeholder="請先匯入/讀入字幕" />
+                    </div>
+               </div>
           </div>
           <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
           <script
@@ -112,8 +104,6 @@
 
           <script src="js/libs/CSInterface.js"></script>
           <script src="js/libs/jquery-2.0.2.min.js"></script>
-
-          <script src="js/pickr.js"></script>
           <script src="js/themeManager.js"></script>
           <script src="js/main.js"></script>
           <script src="js/index.js"></script>
