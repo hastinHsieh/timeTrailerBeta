@@ -8,6 +8,7 @@ var fullUrl = script.src;
 var rootPath = fullUrl.replace("main.js", "") + "../jsx/";
 // var rootPath = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/"
 console.log(fullUrl)
+console.log(rootPath)
 var csInterface = new CSInterface();
 var subAry = new Array();
 var subFormsContainer = document.getElementById("subForms");
