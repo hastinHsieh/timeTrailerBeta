@@ -7,8 +7,8 @@ var fullUrl = script.src;
 //TODO: check function when online
 var rootPath = fullUrl.replace("js/main.js", "jsx/");
 // var rootPath = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/"
-console.log(fullUrl)
-console.log(rootPath)
+console.log(fullUrl);
+console.log(rootPath);
 var csInterface = new CSInterface();
 var subAry = new Array();
 var subFormsContainer = document.getElementById("subForms");
@@ -183,7 +183,7 @@ function readInTxtLayer() {
                     return;
                }
           });
-          csInterface.evalScript('subtitleLayerID=app.project.activeItem.selectedLayers[0].id;$.evalFile("' + rootPath + 'readInSubtitleData.jsx");readInSubtitleData()', function (result) {
+          csInterface.evalScript("subtitleLayerID=app.project.activeItem.selectedLayers[0].id;" + readInSubtitleData_jsxbin + ";rdInSubtitleData()", function (result) {
                subAry = JSON.parse(result);
           });
      } catch (e) {
@@ -194,7 +194,7 @@ function readInTxtLayer() {
 }
 
 function creatTextKeys() {
-     csInterface.evalScript('try{$.evalFile("' + rootPath + 'createTextKeys.jsx");createTextKeys(' + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
+     csInterface.evalScript("try{" + createTextKeys_jsxbin + ";cateTextKeys(" + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
           subtitleLayerID = result;
      });
 }
@@ -207,7 +207,7 @@ function updateAETextcontent(formItem) {
      tmpObj.textContent = curContent;
      tmpObj.subtitleLayerID = subtitleLayerID;
      subAry[curEditItemIndex].subContent = tmpObj.textContent;
-     csInterface.evalScript('try{$.evalFile("' + rootPath + 'updateAETextContent.jsx"); updateAETextContent(' + JSON.stringify(tmpObj) + ");}catch(e){alert(err)}");
+     csInterface.evalScript("try{" + updateAETextContent_jsxbin + "; updateAETextContent(" + JSON.stringify(tmpObj) + ");}catch(e){alert(err)}");
 
      prevEditItemIndex = curEditItemIndex;
 }
@@ -217,7 +217,7 @@ function scrollToTime_AE(formItem) {
      let tmpObj = new Object();
      tmpObj.curEditItemIndex = curEditItemIndex;
      tmpObj.subtitleLayerID = subtitleLayerID;
-     csInterface.evalScript("tmpObj=" + JSON.stringify(tmpObj) + ';$.evalFile("' + rootPath + 'scrollToTime_AE.jsx");');
+     csInterface.evalScript("tmpObj=" + JSON.stringify(tmpObj) + ";" + scrollToTime_AE_jsxbin + ";scrollToIme_AEj()");
 }
 
 function scrollToTime_form() {
@@ -246,7 +246,7 @@ function insertSub(formItem) {
      let tmpObject = { subTimeTxt: getTextFromSec(newTime), subTimeNum: newTime, subContent: "" };
      subAry.splice(formItemIndex + 1, 0, tmpObject);
      let newGroup = subFormsContainer.insertBefore(createformGroup(tmpObject), formGroups[formItemIndex + 1]);
-     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ';$.evalFile("' + rootPath + 'addTextKey.jsx");createTextKey(' + JSON.stringify(tmpObject) + ")");
+     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ";" + addTextKey_jsxbin + ";createTextKey(" + JSON.stringify(tmpObject) + ")");
      newGroup.getElementsByTagName("input")[0].focus();
      formItem.blur();
 }
@@ -254,12 +254,12 @@ function removeSub(formItem) {
      let formItemIndex = getElementIndex(formItem);
      subAry.splice(formItemIndex, 1);
      subFormsContainer.removeChild(formItem.parentNode);
-     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ';$.evalFile("' + rootPath + 'removeTextKey.jsx");removeTextKey(' + formItemIndex + ")");
+     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ";" + removeTextKey_jsxbin + ";removeTextKey(" + formItemIndex + ")");
 }
 
 function readSubtitleData() {
      var aeSubAry = [];
-     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ';$.evalFile("' + rootPath + 'readInSubtitleData.jsx");readInSubtitleData()', function (result) {
+     csInterface.evalScript("subtitleLayerID=" + subtitleLayerID + ";" + readInSubtitleData_jsxbin + ";readInSubtitleData()", function (result) {
           aeSubAry = JSON.parse(result);
           if (subAry != aeSubAry) {
                for (let i = 0; i < subAry.length; i++) {
@@ -315,3 +315,31 @@ function setKeyOnSelectedTxtLayer() {
           }
      });
 }
+
+const addTextKey_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnABMAbyBnABMUbyBn0ABgVbyBn0ABZWnAEXzJjMjBjZjFjSiCjZiJiEBfXzHjQjSjPjKjFjDjUCfjzDjBjQjQDfRBVzHjMjBjZjFjSiJiEEfAffABnzBjFFnbyBn0ABZYnAFbABE40BhAB0AzMjHjFjUiMjBjZjFjSiCjZiJiEGAgaDJBnAEXzOjCjFjHjJjOiVjOjEjPiHjSjPjVjQHfjDfRBFeMjBjEjEifjTjVjCjUjJjUjMjFffgCbyBn0AEJDnASzHjJjUjFjNiGiQiTIAXzJjGjSjBjNjFiSjBjUjFJfXzKjBjDjUjJjWjFiJjUjFjNKfXCfjDfnftJEnABjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiELfEjzGiOjVjNjCjFjSMfRBjLfffnfJFnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSNfEjGfRBjLfffnfJGnAEXzOjTjFjUiWjBjMjVjFiBjUiUjJjNjFOfEXzIjQjSjPjQjFjSjUjZPfjNfRBFeLiTjPjVjSjDjFhAiUjFjYjUffRCXzKjTjVjCiUjJjNjFiOjVjNQfVzJjTjVjCiPjCjKjFjDjURfBEjzMiUjFjYjUiEjPjDjVjNjFjOjUSfRBXzKjTjVjCiDjPjOjUjFjOjUTfVRfBftffABnFnbyBn0ABJInAEjzFjBjMjFjSjUUfRCjFfXzEjMjJjOjFVfjFfffJKnAEXzMjFjOjEiVjOjEjPiHjSjPjVjQWfjDfnfACR40BhAI40BiABBAzNjDjSjFjBjUjFiUjFjYjUiLjFjZXAgb0EzAYByB"
+);
+
+const createTextKeys_jsxbin = eval(
+     "@JSXBIN@ES@2.1@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"
+);
+
+const readInSubtitleData_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnABMAbyBnADMSbyBn0ABgTbyBn0ABZUnAEXzIjJjUjFjNiCjZiJiEBfXzHjQjSjPjKjFjDjUCfjzDjBjQjQDfRBVzGjJjUjFjNiJiEEfAffABnzBjFFnbyBn0ABZWnAFbABE40BhAB0AzLjHjFjUiJjUjFjNiCjZiJiEGAYMZbyBn0ABggabyBn0ABZgbnAEXzJjMjBjZjFjSiCjZiJiEHfXCfjDfRBVzHjMjBjZjFjSiJiEIfAffABnFnbyBn0ABZgdnAFbABI40BhAB0AzMjHjFjUiMjBjZjFjSiCjZiJiEJAgfMhAbyBn0AFJhBnASzEjIjPjVjSKAEXzFjTjMjJjDjFLfCzBhLMnEjzIjQjBjSjTjFiJjOjUNfRBCzBhPOVzHjTjFjDiUjJjNjFPfEnnd2QOffeChQhQnRBFdyCffnftJhCnASzDjNjJjOQBEXLfCMnEjNfRBCOCzBhFRVPfEnnd2QOnndhcffeChQhQnRBFdyCffnftJhDnASzDjTjFjDSCEXLfCMnEjNfRBCRVPfEnndhcffeChQhQnRBFdyCffnftJhEnASzEjNiTjFjDTDEXLfCMnEjNfRBCzBhKUCRVPfEnndBnnd2nIDffeDhQhQhQnRBFdyDffnftZhFnACMCMCMCMCMCMVKfAnneBhaVQfBnnnneBhaVSfCnnnneBhMVTfDnnAFK40BiAS4C0AiAT4D0AiAQ4B0AiAP40BhABEAzOjHjFjUiUjFjYjUiGjSjPjNiTjFjDVAhGBgBbyBn0AFJDnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSWfEjJfRBEjzGiOjVjNjCjFjSXfRBjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiEYfffffnfJEnABjzVjTjVjCjUjJjUjMjFiMjBjZjFjSiUjFjYjUiQjSjPjQZfEXzIjQjSjPjQjFjSjUjZgafjWfRBFeLiTjPjVjSjDjFhAiUjFjYjUffnfJHnASzIjBjFiTjVjCiBjSjZgbAAnnftaIbKn0ACJKnASzHjLjFjZiUjJjNjFgcCEXgcfjZfRBCMVzBjJgdfBnndBffnftJLnAEXzEjQjVjTjIgefVgbfARBWzGiPjCjKjFjDjUgfDzKjTjVjCiUjJjNjFiUjYjUhAEjVfRBVgcfCffzKjTjVjCiUjJjNjFiOjVjNhBVgcfCzKjTjVjCiDjPjOjUjFjOjUhCXzEjUjFjYjUhDfEXzIjLjFjZiWjBjMjVjFhEfjZfRBCMVgdfBnndBffffAVgdfBAXzHjOjVjNiLjFjZjThFfjZfByBzBhchGZNnAEXzJjTjUjSjJjOjHjJjGjZhHfjzEiKiTiPiOhIfRBVgbfAffABnzDjFjSjShJnbyBn0ABJPnAEjzFjBjMjFjSjUhKfRCCMnjhJfeCiBhAnXzEjMjJjOjFhLfjhJfffADgd4B0AiAgb40BiAgc4C0AiAADAzSjSjFjBjEiJjOiTjVjCjUjJjUjMjFiEjBjUjBhMAhH0EzAhNByB"
+);
+
+const removeTextKey_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnABMAbyBnABMMbyBn0ABgNbyBn0ABZOnAEXzJjMjBjZjFjSiCjZiJiEBfXzHjQjSjPjKjFjDjUCfjzDjBjQjQDfRBVzHjMjBjZjFjSiJiEEfAffABnzBjFFnbyBn0ABZQnAFbABE40BhAB0AzMjHjFjUiMjBjZjFjSiCjZiJiEGASDJBnAEXzOjCjFjHjJjOiVjOjEjPiHjSjPjVjQHfjDfRBFePjSjFjNjPjWjFifjTjVjCjUjJjUjMjFffgCbyBn0ADJEnABjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiEIfEjzGiOjVjNjCjFjSJfRBjIfffnfJFnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSKfEjGfRBjIfffnfJGnAEXzJjSjFjNjPjWjFiLjFjZLfEXzIjQjSjPjQjFjSjUjZMfjKfRBFeLiTjPjVjSjDjFhAiUjFjYjUffRBCzBhLNVzNjGjPjSjNiJjUjFjNiJjOjEjFjYOfAnndBffABnFnbyBn0ABJInAEjzFjBjMjFjSjUPfRCjFfXzEjMjJjOjFQfjFfffJKnAEXzMjFjOjEiVjOjEjPiHjSjPjVjQRfjDfnfABO40BhAB0AzNjSjFjNjPjWjFiUjFjYjUiLjFjZSAT0EzATByB"
+);
+
+const scrollToTime_AE_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnADMAbyBn0AGJBnABjzNjGjPjSjNiJjUjFjNiJjOjEjFjYBfXzQjDjVjSiFjEjJjUiJjUjFjNiJjOjEjFjYCfjzGjUjNjQiPjCjKDfnfJCnABjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiEEfEjzGiOjVjNjCjFjSFfRBXEfjDfffnfJDnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSGfEjzMjHjFjUiMjBjZjFjSiCjZiJiEHfRBjEfffnfJEnABjzHjJjUjFjNiGiQiTIfXzJjGjSjBjNjFiSjBjUjFJfXzKjBjDjUjJjWjFiJjUjFjNKfXzHjQjSjPjKjFjDjULfjzDjBjQjQMfnfJFnASzHjLjFjZiUjJjNjFNAEXNfEXzIjQjSjPjQjFjSjUjZOfjGfRBFeLiTjPjVjSjDjFhAiUjFjYjUffRBCzBhLPjBfnndBffnftJInABXzEjUjJjNjFQfXKfXLfjMfCzBhPREXzEjDjFjJjMSfjzEiNjBjUjITfRBCzBhKUVNfAjIfnnffjIfnnnfABN40BiAABAzPjTjDjSjPjMjMiUjPiJjNjFifiBiFjKVAJMLbyBn0ABgMbyBn0ABZNnAEXzIjJjUjFjNiCjZiJiEWfXLfjMfRBVzGjJjUjFjNiJiEXfAffABnzBjFYnbyBn0ABZPnAFbABX40BhAB0AzLjHjFjUiJjUjFjNiCjZiJiEZARMSbyBn0ABgTbyBn0ABZUnAEXzJjMjBjZjFjSiCjZiJiEgafXLfjMfRBVzHjMjBjZjFjSiJiEgbfAffABnYnbyBn0ABZWnAFbABgb40BhAB0AHAY0EzAgcByB"
+);
+
+const scrollToTime_form_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnABMAbyBn0ABaBbyCn0ABOCbyDn0ABZDnACzBhNBVzBjJCfAnndBACzBhcDXzEjUjJjNjFEfXzKjBjDjUjJjWjFiJjUjFjNFfXzHjQjSjPjKjFjDjUGfjzDjBjQjQHfCBXzKjTjVjCiUjJjNjFiOjVjNIfQzAJfjzGjTjVjCiBjSjZKfVCfAnnd8lYgekFnLiRlYkehfnnOEbyFn0ABZFnACBXzGjMjFjOjHjUjILfjKfnndBACzChdhdMVCfACBXLfjKfnndBnnbyHn0ABDHnAJfAVCf0AXLfjKfByBDABC40BiAABAzOjDjBjMjDjVjMjBjUjFiJjOjEjFjYNAK0EJByB"
+);
+
+const updateAETextContent_jsxbin = eval(
+     "@JSXBIN@ES@2.1@MyBbyBnABMAbyBnACMRbyBn0ABgSbyBn0ABZTnAEXzIjJjUjFjNiCjZiJiEBfXzHjQjSjPjKjFjDjUCfjzDjBjQjQDfRBVzGjJjUjFjNiJiEEfAffABnzBjFFnbyBn0ABZVnAFbABE40BhAB0AzLjHjFjUiJjUjFjNiCjZiJiEGAXMYbyBn0ABgZbyBn0ABZganAEXzJjMjBjZjFjSiCjZiJiEHfXCfjDfRBVzHjMjBjZjFjSiJiEIfAffABnFnbyBn0ABZgcnAFbABI40BhAB0AzMjHjFjUiMjBjZjFjSiCjZiJiEJAgeEJBnABjzNjGjPjSjNiJjUjFjNiJjOjEjFjYKfXKfVzFjJjOjQjVjULfAnfJCnABjzLjUjFjYjUiDjPjOjUjFjOjUMfXMfVLfAnfJDnABjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiENfEjzGiOjVjNjCjFjSOfRBXNfVLfAffnfgFbyBn0AEJGnAEXzOjCjFjHjJjOiVjOjEjPiHjSjPjVjQPfjDfRBFeNjFjEjJjUifjTjVjCjUjJjUjMjFffJHnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSQfEjJfRBjNfffnfJLnAEXzNjTjFjUiWjBjMjVjFiBjUiLjFjZRfEXzIjQjSjPjQjFjSjUjZSfjQfRBFeLiTjPjVjSjDjFhAiUjFjYjUffRCCzBhLTjKfnndBjMfffJMnAEXzMjFjOjEiVjOjEjPiHjSjPjVjQUfjDfnfABnzDjFjSjSVnbyBn0ABJOnAEjzFjBjMjFjSjUWfRCjVfXzEjMjJjOjFXfjVfffABL40BhAB0AzTjVjQjEjBjUjFiBiFiUjFjYjUiDjPjOjUjFjOjUYAgf0EzAZByB"
+);
