@@ -310,16 +310,16 @@ function readSubtitleData() {
 // creatTextKeys();
 // updateSubForms();
 
-function importSRT(file) {
+async function importSRT(file) {
      getFPS();
      readInSRT(file);
      creatTextKeys();
      updateSubForms();
 }
-function importTxtLayer() {
+async function importTxtLayer() {
      try {
           getFPS();
-          readInTxtLayer();
+          await readInTxtLayer();
           updateSubForms();
      } catch (e) {
           alert(e, e.line);
