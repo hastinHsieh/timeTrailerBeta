@@ -326,7 +326,7 @@ async function importTxtLayer() {
      }
 }
 function setKeyOnSelectedTxtLayer() {
-     csInterface.evalScript("app.project.activeItem.selectedLayers[0].id;", function (result) {
+     csInterface.evalScript("alert(app.project.activeItem.selectedLayers[0].id);app.project.activeItem.selectedLayers[0].id;", function (result) {
           if (result != subtitleLayerID) {
                creatTextKeys();
           } else {
