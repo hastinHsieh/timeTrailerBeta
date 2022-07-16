@@ -5,7 +5,7 @@ const root = document.documentElement;
 var script = document.currentScript;
 var fullUrl = script.src;
 //TODO: check function when online
-var rootPath = fullUrl.replace("main.js", "") + "../jsx/";
+var rootPath = fullUrl.replace("js/main.js", "jsx/");
 // var rootPath = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/"
 console.log(fullUrl)
 console.log(rootPath)
