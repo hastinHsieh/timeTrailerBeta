@@ -215,7 +215,6 @@ function readInTxtLayer() {
 function creatTextKeys() {
      csInterface.evalScript("try{" + createTextKeys_jsxbin + ";createTextKeys(" + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
           subtitleLayerID = result;
-          alert(result);
      });
 }
 
@@ -320,7 +319,7 @@ async function importSRT(file) {
 async function importTxtLayer() {
      try {
           getFPS();
-          readInTxtLayer();
+          await readInTxtLayer();
           updateSubForms();
      } catch (e) {
           alert(e, e.line);
