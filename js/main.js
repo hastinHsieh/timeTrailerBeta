@@ -215,6 +215,7 @@ function readInTxtLayer() {
 function creatTextKeys() {
      csInterface.evalScript("try{" + createTextKeys_jsxbin + ";createTextKeys(" + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
           subtitleLayerID = result;
+          alert(result);
      });
 }
 
@@ -326,7 +327,7 @@ async function importTxtLayer() {
      }
 }
 function setKeyOnSelectedTxtLayer() {
-     csInterface.evalScript("alert(app.project.activeItem.selectedLayers[0].id);app.project.activeItem.selectedLayers[0].id;", function (result) {
+     csInterface.evalScript("try{alert(app.project.activeItem.selectedLayers[0].id);app.project.activeItem.selectedLayers[0].id;}catch(err){alert(err,err.line)}", function (result) {
           if (result != subtitleLayerID) {
                creatTextKeys();
           } else {
