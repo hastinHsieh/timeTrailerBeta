@@ -204,7 +204,7 @@ function readInTxtLayer() {
                     return;
                }
           });
-          csInterface.evalScript("subtitleLayerID=app.project.activeItem.selectedLayers[0].id;" + readInSubtitleData_jsxbin + ";rdInSubtitleData()", function (result) {
+          csInterface.evalScript("subtitleLayerID=app.project.activeItem.selectedLayers[0].id;" + readInSubtitleData_jsxbin + ";readInSubtitleData()", function (result) {
                subAry = JSON.parse(result);
           });
      } catch (e) {
@@ -215,7 +215,7 @@ function readInTxtLayer() {
 }
 
 function creatTextKeys() {
-     csInterface.evalScript("try{" + createTextKeys_jsxbin + ";cateTextKeys(" + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
+     csInterface.evalScript("try{" + createTextKeys_jsxbin + ";createTextKeys(" + JSON.stringify(subAry) + ")}catch(err){alert(err,err.line)}", function (result) {
           subtitleLayerID = result;
      });
 }
