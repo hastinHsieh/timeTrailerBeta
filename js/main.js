@@ -6,6 +6,8 @@ var script = document.currentScript;
 var fullUrl = script.src;
 //TODO: check function when online
 var rootPath = fullUrl.replace("main.js", "") + "../jsx/";
+// var rootPath = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/"
+console.log(fullUrl)
 var csInterface = new CSInterface();
 var subAry = new Array();
 var subFormsContainer = document.getElementById("subForms");
