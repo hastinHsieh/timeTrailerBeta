@@ -319,7 +319,7 @@ async function importSRT(file) {
 async function importTxtLayer() {
      try {
           getFPS();
-          await readInTxtLayer();
+          readInTxtLayer();
           updateSubForms();
      } catch (e) {
           alert(e, e.line);
