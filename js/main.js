@@ -36,27 +36,21 @@ const scrollToTime_form_jsxbin =
 const updateAETextContent_jsxbin =
      'eval("@JSXBIN@ES@2.1@MyBbyBnABMAbyBnACMRbyBn0ABgSbyBn0ABZTnAEXzIjJjUjFjNiCjZiJiEBfXzHjQjSjPjKjFjDjUCfjzDjBjQjQDfRBVzGjJjUjFjNiJiEEfAffABnzBjFFnbyBn0ABZVnAFbABE40BhAB0AzLjHjFjUiJjUjFjNiCjZiJiEGAXMYbyBn0ABgZbyBn0ABZganAEXzJjMjBjZjFjSiCjZiJiEHfXCfjDfRBVzHjMjBjZjFjSiJiEIfAffABnFnbyBn0ABZgcnAFbABI40BhAB0AzMjHjFjUiMjBjZjFjSiCjZiJiEJAgeEJBnABjzNjGjPjSjNiJjUjFjNiJjOjEjFjYKfXKfVzFjJjOjQjVjULfAnfJCnABjzLjUjFjYjUiDjPjOjUjFjOjUMfXMfVLfAnfJDnABjzPjTjVjCjUjJjUjMjFiMjBjZjFjSiJiENfEjzGiOjVjNjCjFjSOfRBXNfVLfAffnfgFbyBn0AEJGnAEXzOjCjFjHjJjOiVjOjEjPiHjSjPjVjQPfjDfRBFeNjFjEjJjUifjTjVjCjUjJjUjMjFffJHnABjzNjTjVjCjUjJjUjMjFiMjBjZjFjSQfEjJfRBjNfffnfJLnAEXzNjTjFjUiWjBjMjVjFiBjUiLjFjZRfEXzIjQjSjPjQjFjSjUjZSfjQfRBFeLiTjPjVjSjDjFhAiUjFjYjUffRCCzBhLTjKfnndBjMfffJMnAEXzMjFjOjEiVjOjEjPiHjSjPjVjQUfjDfnfABnzDjFjSjSVnbyBn0ABJOnAEjzFjBjMjFjSjUWfRCjVfXzEjMjJjOjFXfjVfffABL40BhAB0AzTjVjQjEjBjUjFiBiFiUjFjYjUiDjPjOjUjFjOjUYAgf0EzAZByB")';
 
-(function () {
-     "use strict";
-     function init() {
-          themeManager.init();
-     }
-     init();
-})();
-
 //bootstrap tooltip
 $(function () {
      $('[data-bs-toggle="tooltip"]').tooltip();
 });
-
-// function executeScript(scriptPath) {
-//      try {
-//           csInterface.evalScript('$.evalFile("' + rootPath + scriptPath + '")');
-//      } catch (err) {
-//           alert(err, err.line);
-//      }
-//      $("button").tooltip("hide");
-// }
+try {
+     (function () {
+          "use strict";
+          function init() {
+               themeManager.init();
+          }
+          init();
+     })();
+} catch (err) {
+     document.getElementById("main").style.background = "#222222";
+}
 
 function getFPS() {
      csInterface.evalScript("app.project.activeItem.frameRate", function (result) {
@@ -188,10 +182,6 @@ function readInSRT(srtFile) {
                }
           }
      }
-     // subAry = [
-     //      { subTimeTxt: "00:00:02,586", subContent: "語法剖析器" },
-     //      { subTimeTxt: "00:00:03,446", subContent: "所以台灣高血壓學會推出了最新的治療指引" },
-     // ];
 }
 function readInTxtLayer() {
      try {
@@ -209,7 +199,6 @@ function readInTxtLayer() {
           alert(e, e.line);
      }
      return new Promise((r) => setTimeout(r, 500));
-     // alert(subAry == aeSubAry);
 }
 
 function creatTextKeys() {
@@ -304,12 +293,6 @@ function readSubtitleData() {
      });
 }
 
-// document.addEventListener("keyup", function (eventRef) {
-// getFPS();
-// readInSRT("G:/共用雲端硬碟/6_資源/17 插件/Script Development/Extension/Subtitle 3.0/test.srt");
-// creatTextKeys();
-// updateSubForms();
-
 async function importSRT(file) {
      getFPS();
      readInSRT(file);
@@ -326,7 +309,7 @@ async function importTxtLayer() {
      }
 }
 function setKeyOnSelectedTxtLayer() {
-     csInterface.evalScript("try{alert(app.project.activeItem.selectedLayers[0].id);app.project.activeItem.selectedLayers[0].id;}catch(err){alert(err,err.line)}", function (result) {
+     csInterface.evalScript(";app.project.activeItem.selectedLayers[0].id;", function (result) {
           if (result != subtitleLayerID) {
                creatTextKeys();
           } else {
